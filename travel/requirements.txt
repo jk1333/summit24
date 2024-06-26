@@ -1,0 +1,7 @@
+streamlit
+google-cloud-storage
+google-cloud-aiplatform
+extra-streamlit-components
+pytube
+moviepy
+streamlit-folium

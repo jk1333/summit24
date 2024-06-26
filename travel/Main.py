@@ -58,7 +58,7 @@ SAFETY_TEXT = {
         }
 
 BUCKET_ROOT = "jk-content"
-MAPAPI_KEY = "AIzaSyDVC_SdlKScMFXV752seAwVs9z7-DjG900"
+MAPAPI_KEY = "MAP_API_KEY"
 DEFAULT_VIDEO_URL = "https://www.youtube.com/watch?v=F2utz6L76D0"
 CUT_TIME = 1   #Drop shorts less than n seconds
 THREAD_SIZE = 8

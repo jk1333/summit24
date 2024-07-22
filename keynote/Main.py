@@ -4,30 +4,7 @@ st.set_page_config(page_title='Keynote summarizer',
                     layout="wide", 
                     initial_sidebar_state="collapsed", 
                     menu_items=None)
-from pytube import cipher
-class CustomCipher(cipher.Cipher):
-    def __init__(self, js: str):
-        from typing import List
-        import re
-        from pytube.exceptions import RegexMatchError
-        self.transform_plan: List[str] = cipher.get_transform_plan(js)
-        var_regex = re.compile(r"^[\w\$_]+[^\w\$_]")
-        var_match = var_regex.search(self.transform_plan[0])
-        if not var_match:
-            raise RegexMatchError(
-                caller="__init__", pattern=var_regex.pattern
-            )
-        var = var_match.group(0)[:-1]
-        self.transform_map = cipher.get_transform_map(js, var)
-        self.js_func_patterns = [
-            r"\w+\.(\w+)\(\w,(\d+)\)",
-            r"\w+\[(\"\w+\")\]\(\w,(\d+)\)"
-        ]
-        self.throttling_plan = cipher.get_throttling_plan(js)
-        self.throttling_array = cipher.get_throttling_function_array(js)
-        self.calculated_n = None
-cipher.Cipher = CustomCipher
-from pytube import YouTube
+from pytubefix import YouTube
 import os
 import time
 from concurrent.futures import ThreadPoolExecutor
@@ -116,7 +93,7 @@ def summarize_video(video_id, prompt, out_container):
     responses = analyze_gemini(contents, isStream=True)
     out_container.write_stream(gemini_stream_out(responses))
 
-tool_container = st.columns([1, 2, 1])
+tool_container = st.columns([1, 4, 1])
 prompt = tool_container[1].text_input("프롬프트", DEFAULT_PROMPT, label_visibility="collapsed")
 
 summarize_container = st.columns(len(VIDEOS))
@@ -128,7 +105,7 @@ for id, video_url in enumerate(VIDEOS):
         cols[0].video(VIDEOS[id], loop=True, autoplay=True, muted=True)
         text_out_container.append(cols[1])
 
-code_container = st.columns(3)
+code_container = st.columns([1, 4, 1])
 code_container[1].code('''def summarize_video(video_id, prompt, out_container):
     contents = [Part.from_uri(uri=f"gs://{BUCKET_ROOT}/{video_id}.mp4", mime_type="video/mp4"),
                 prompt]

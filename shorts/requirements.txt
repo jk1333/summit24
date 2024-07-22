@@ -3,4 +3,4 @@ google-cloud-storage
 google-cloud-aiplatform
 extra-streamlit-components
 moviepy
-pytube
+pytubefix

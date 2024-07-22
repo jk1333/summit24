@@ -4,4 +4,4 @@ google-cloud-aiplatform
 extra-streamlit-components
 moviepy
 opencv-python-headless
-pytube
+pytubefix

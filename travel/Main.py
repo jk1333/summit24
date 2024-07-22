@@ -4,31 +4,8 @@ st.set_page_config(page_title='Travel maker Demo',
                     layout="wide", 
                     initial_sidebar_state="collapsed", 
                     menu_items=None)
-from pytube import cipher
-class CustomCipher(cipher.Cipher):
-    def __init__(self, js: str):
-        from typing import List
-        import re
-        from pytube.exceptions import RegexMatchError
-        self.transform_plan: List[str] = cipher.get_transform_plan(js)
-        var_regex = re.compile(r"^[\w\$_]+[^\w\$_]")
-        var_match = var_regex.search(self.transform_plan[0])
-        if not var_match:
-            raise RegexMatchError(
-                caller="__init__", pattern=var_regex.pattern
-            )
-        var = var_match.group(0)[:-1]
-        self.transform_map = cipher.get_transform_map(js, var)
-        self.js_func_patterns = [
-            r"\w+\.(\w+)\(\w,(\d+)\)",
-            r"\w+\[(\"\w+\")\]\(\w,(\d+)\)"
-        ]
-        self.throttling_plan = cipher.get_throttling_plan(js)
-        self.throttling_array = cipher.get_throttling_function_array(js)
-        self.calculated_n = None
-cipher.Cipher = CustomCipher
-from pytube import YouTube
-from pytube.exceptions import VideoUnavailable
+from pytubefix import YouTube
+from pytubefix.exceptions import VideoUnavailable
 import os
 from vertexai.generative_models import Part
 import json

@@ -2,6 +2,6 @@ streamlit
 google-cloud-storage
 google-cloud-aiplatform
 extra-streamlit-components
-pytube
+pytubefix
 moviepy
 streamlit-folium
